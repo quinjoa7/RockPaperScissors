@@ -60,20 +60,20 @@ function playRound(playerSelection, computerSelection) {
     computerSelection = computerPlay();
     let result = match(playerSelection,computerSelection);
 
-    roundResult.textContent = 'Player chose ' + playerSelection + ' and pc chose ' + computerSelection + ' so ' + result;
-    score.textContent = 'Player: ' + playerCounter + ' || Computer: ' + computerCounter;
-    
     if (playerCounter < 5 && computerCounter < 5) {
         if (result === 'player wins') {
             playerCounter++;
         } else if (result === 'computer wins') {
             computerCounter++;
         }
-    } else {
-        if (playerCounter > computerCounter) {
-            gameResult.textContent = 'PLAYER WINS THE GAME';
-        } else {
-            gameResult.textContent = 'COMPUTER WINS THE GAME';
-        }
     }
+    
+    if (playerCounter === 5) {
+        gameResult.textContent = 'PLAYER WINS THE GAME';
+    } else if (computerCounter === 5) {
+        gameResult.textContent = 'COMPUTER WINS THE GAME';
+    }
+
+    roundResult.textContent = 'Player chose ' + playerSelection + ' and pc chose ' + computerSelection + ' so ' + result;
+    score.textContent = 'Player: ' + playerCounter + ' || Computer: ' + computerCounter;
 }
