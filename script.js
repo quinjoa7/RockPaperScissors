@@ -1,18 +1,23 @@
-function computerPlay() {
-    let result = Math.floor(Math.random()*100) +1;
-    if (result <= 33) {
-        return 'rock';
-    }else if (result <= 66) {
-        return 'paper';
-    } else {
-        return 'scissors';
-    }
-}
+const btnRock = document.getElementById('rock');
+const btnPaper = document.getElementById('paper');
+const btnScissors = document.getElementById('scissors');
 
-function playerPlay() {
-    let result = prompt("Rock, Paper or Scissors?").toLowerCase();
-    return result;
-}
+const roundResult = document.getElementById('roundResult');
+const score = document.getElementById('score');
+const gameResult = document.getElementById('gameResult');
+
+btnRock.addEventListener('click', function() {
+    playRound('rock', );
+})
+btnPaper.addEventListener('click', function() {
+    playRound('paper', );
+})
+btnScissors.addEventListener('click', function() {
+    playRound('scissors', );
+})
+
+let playerCounter = 0;
+let computerCounter = 0;
 
 function match(p, c) {
     if (p === c) {
@@ -40,33 +45,35 @@ function match(p, c) {
     }
 }
 
-function playRound(playerSelection, computerSelection) {
-    playerSelection = playerPlay();
-    computerSelection = computerPlay();
-    console.log('player chose ' + playerSelection + ' and pc chose ' + computerSelection);
-    return match(playerSelection,computerSelection);
+function computerPlay() {
+    let result = Math.floor(Math.random()*100) +1;
+    if (result <= 33) {
+        return 'rock';
+    }else if (result <= 66) {
+        return 'paper';
+    } else {
+        return 'scissors';
+    }
 }
 
-function game(){ 
-    let player = 0;
-    let computer = 0;
+function playRound(playerSelection, computerSelection) {
+    computerSelection = computerPlay();
+    let result = match(playerSelection,computerSelection);
 
-    while (player < 5 && computer < 5) {
-        let result = playRound();
-        console.log('Round: ' + result);
+    roundResult.textContent = 'Player chose ' + playerSelection + ' and pc chose ' + computerSelection + ' so ' + result;
+    score.textContent = 'Player: ' + playerCounter + ' || Computer: ' + computerCounter;
+    
+    if (playerCounter < 5 && computerCounter < 5) {
         if (result === 'player wins') {
-            player++;
+            playerCounter++;
         } else if (result === 'computer wins') {
-            computer++;
+            computerCounter++;
+        }
+    } else {
+        if (playerCounter > computerCounter) {
+            gameResult.textContent = 'PLAYER WINS THE GAME';
+        } else {
+            gameResult.textContent = 'COMPUTER WINS THE GAME';
         }
     }
-
-    if (player > computer) {
-        console.log('PLAYER WINS THE GAME')
-    } else {
-        console.log('COMPUTER WINS THE GAME')
-    }
-    console.log('Player: ' + player + ' - Computer: ' + computer)
 }
-
-game();
